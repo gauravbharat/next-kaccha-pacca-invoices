@@ -4,6 +4,7 @@ import clsx from 'clsx';
 export default function InvoiceStatus({ status }: { status: string }) {
   return (
     <span
+      // Use clsx to conditionally apply class names, like ngClass in Angular
       className={clsx(
         'inline-flex items-center rounded-full px-2 py-1 text-xs',
         {
