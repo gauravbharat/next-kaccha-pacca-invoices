@@ -27,7 +27,7 @@ function redirectAfterRevalidate() {
   redirect(invoicesTablePath);
 }
 
-export async function createInvoice(formData: FormData): Promise<void> {
+export async function createInvoice(formData: FormData) {
   // const rawFormData = Object.fromEntries(formData.entries());
   // try {
   const { amount, customerId, status } = CreateInvoice.parse({
@@ -47,10 +47,16 @@ export async function createInvoice(formData: FormData): Promise<void> {
     date,
   });
 
-  await sql`
+  try {
+    await sql`
       INSERT INTO invoices (customer_id, amount, status, date) 
       VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
     `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Invoice.',
+    };
+  }
 
   redirectAfterRevalidate();
   // } catch (error) {
@@ -58,10 +64,7 @@ export async function createInvoice(formData: FormData): Promise<void> {
   // }
 }
 
-export async function updateInvoice(
-  id: string,
-  formData: FormData,
-): Promise<void> {
+export async function updateInvoice(id: string, formData: FormData) {
   const { amount, customerId, status } = UpdateInvoice.parse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
@@ -70,19 +73,28 @@ export async function updateInvoice(
 
   const amountInCents = amount * 100;
 
-  await sql`
-    UPDATE invoices
-    SET customer_id=${customerId}, amount=${amountInCents}, status=${status}
-    WHERE id = ${id}
-  `;
+  try {
+    await sql`
+      UPDATE invoices
+      SET customer_id=${customerId}, amount=${amountInCents}, status=${status}
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    return { message: 'Database Error: Failed to Update Invoice.' };
+  }
 
   redirectAfterRevalidate();
 }
 
-export async function deleteInvoice(id: string): Promise<void> {
-  await sql`
-    DELETE FROM invoices WHERE id = ${id}
-  `;
+export async function deleteInvoice(id: string) {
+  try {
+    await sql`
+      DELETE FROM invoices WHERE id = ${id}
+    `;
 
-  revalidatePath(invoicesTablePath);
+    revalidatePath(invoicesTablePath);
+    return { message: 'Deleted Invoice.' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete Invoice.' };
+  }
 }
