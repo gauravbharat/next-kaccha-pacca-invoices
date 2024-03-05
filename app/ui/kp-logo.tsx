@@ -8,7 +8,7 @@ export default function KacchaPaccaLogo() {
     >
       {/* <GlobeAltIcon className="h-12 w-12 rotate-[15deg]" /> */}
       <CalculatorIcon className="h-12 w-12 rotate-[-15deg]" />
-      <p className="text-[44px]">Kaccha-Pacca</p>
+      <p className="text-[44px]">Accounts</p>
     </div>
   );
 }
