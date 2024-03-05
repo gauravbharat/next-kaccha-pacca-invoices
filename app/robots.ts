@@ -19,6 +19,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/dashboard/',
       },
     ],
-    sitemap: 'https://next-kaccha-pacca-invoices.vercel.app/sitemap.xml',
+    sitemap: 'https://saas-accounts-basic.vercel.app/sitemap.xml',
   };
 }
