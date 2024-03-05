@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 
+// generates robots.txt file
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
