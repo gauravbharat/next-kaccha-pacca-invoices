@@ -20,6 +20,20 @@ export default function LoginForm() {
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
           Please log in to continue.
         </h1>
+
+        {window.parent !== window && (
+          <h2>
+            This web app is opened in an iFrame and needs to be opened in a{' '}
+            <a
+              href="https://saas-accounts-basic.vercel.app/login"
+              target="_blank"
+            >
+              browser tab
+            </a>{' '}
+            for authentication
+          </h2>
+        )}
+
         <div className="w-full">
           <div>
             <label
