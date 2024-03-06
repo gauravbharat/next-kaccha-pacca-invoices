@@ -30,16 +30,17 @@ export default function LoginForm() {
         </h1>
 
         {warning && (
-          <h2>
+          <p className="text-sm text-red-500">
             This web app is opened in an iFrame and needs to be opened in a{' '}
             <a
+              className="underline"
               href="https://saas-accounts-basic.vercel.app/login"
               target="_blank"
             >
               browser tab
             </a>{' '}
             for authentication
-          </h2>
+          </p>
         )}
 
         <div className="w-full">
