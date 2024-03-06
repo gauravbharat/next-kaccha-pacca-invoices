@@ -21,7 +21,7 @@ export default function LoginForm() {
           Please log in to continue.
         </h1>
 
-        {window.parent !== window && (
+        {!!window && window?.parent !== window && (
           <h2>
             This web app is opened in an iFrame and needs to be opened in a{' '}
             <a
