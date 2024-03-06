@@ -10,9 +10,17 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
 import { useFormState } from 'react-dom';
 import { authenticate } from '../lib/actions';
+import { useEffect, useState } from 'react';
 
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const [warning, setWarning] = useState(false);
+
+  useEffect(() => {
+    if (window?.parent !== window) {
+      setWarning(true);
+    }
+  }, []);
 
   return (
     <form className="space-y-3" action={dispatch}>
@@ -21,7 +29,7 @@ export default function LoginForm() {
           Please log in to continue.
         </h1>
 
-        {!!window && window?.parent !== window && (
+        {warning && (
           <h2>
             This web app is opened in an iFrame and needs to be opened in a{' '}
             <a
